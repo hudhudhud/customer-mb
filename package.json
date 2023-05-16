@@ -1,0 +1,53 @@
+{
+	"name": "diy-mobile",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "cross-env VUE_APP_BUILD=dev vue-cli-service serve",
+		"build:diy:test": "cross-env vue-cli-service build --mode testing --dest dist/diy-mobile",
+		"build:diy:pro": "cross-env vue-cli-service build --mode production --dest dist/diy-mobile",
+		"build:publicity:test": "cross-env VUE_APP_TARGET=publicity vue-cli-service build --mode testing --dest dist/publicity",
+		"build:publicity:pro": "cross-env VUE_APP_TARGET=publicity vue-cli-service build --mode production --dest dist/publicity",
+		"build:test": "vue-cli-service build --mode testing --dest dist/diy-mobile"
+	},
+	"dependencies": {
+		"@babel/polyfill": "^7.7.0",
+		"axios": "^0.18.0",
+		"core-js": "^2.6.5",
+		"es6-promise": "^4.2.8",
+		"font-awesome": "^4.7.0",
+		"vant": "^2.12.50",
+		"moment": "^2.24.0",
+		"vue": "^2.6.10",
+		"vue-router": "^3.0.3",
+		"vuex": "^3.0.1",
+		"vue-awesome-swiper": "^3.1.3",
+		"js-cookie": "^3.0.1",
+		"element-ui": "^2.15.10",
+		"vue-quill-editor": "^3.0.6",
+		"crypto-js": "^4.0.0",
+		"jquery": "^3.4.1",
+		"video.js": "^7.14.3",
+		"videojs-landscape-fullscreen": "^11.22.0"
+	},
+	"devDependencies": {
+		"@vue/cli-plugin-babel": "^3.0.5",
+		"@vue/cli-plugin-eslint": "^3.0.5",
+		"@vue/cli-service": "^3.0.5",
+		"babel-eslint": "^10.0.1",
+		"babel-plugin-import": "^1.11.0",
+		"babel-plugin-transform-remove-console": "^6.9.4",
+		"compression-webpack-plugin": "^3.0.1",
+		"cross-env": "^5.2.0",
+		"cssnano": "^4.1.10",
+		"eslint": "^5.16.0",
+		"eslint-plugin-vue": "^5.0.0",
+		"stylus": "^0.54.5",
+		"stylus-loader": "^3.0.2",
+		"vue-template-compiler": "^2.5.21"
+	},
+	"browserslist": [
+		"> 1%",
+		"last 2 versions"
+	]
+}

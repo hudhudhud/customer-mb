@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  </head>
+  <body>
+    <section class="content">
+        <div class="left menu">
+          <a href="#desc">
+              说明
+          </a>
+          <a href="#api" class="hasInner toggle">
+            全局方法或变量
+          </a>
+          <div class="inner menu hidden">
+            <a href="#api/toast">toast提示弹窗</a>
+            <a href="#api/showLoading">showLoading加载中弹窗</a>
+            <a href="#api/hideLoading">hideLoading关闭加载中弹窗</a>
+            <a href="#api/pushPage">pushPage应用内页面跳转</a>
+            <a href="#api/replacePage">replacePage替换当前页跳转</a>
+            <a href="#api/goHomePage">goHomePage跳转应用首页</a>
+            <a href="#api/location">location获取页面路由信息</a>
+          </div>
+          <a href="#struct">
+              配置整体结构
+          </a>
+          <a href="#title">
+              标题组件
+          </a>
+          <a href="#imgList">
+              图片组件
+          </a>
+          <a href="#imgTextNav">
+              图文导航组件
+          </a>
+          <a href="#swiper">
+              轮播图组件
+          </a>
+          <a href="#searchBar">
+              搜索框组件
+          </a>
+          <a href="#datasourceList">
+              列表组件
+          </a>
+          <a href="#articleList">
+              文章列表
+          </a>
+          <a href="#videoList">
+              视频列表
+          </a>
+          <a href="#quesList">
+              问答列表
+          </a>
+          <a href="#favorList">
+              我的收藏
+          </a>
+        </div>
+        <div class="right">
+          <div id='desc'>
+              说明：
+              <ol>
+                  <li>项目支持jquery,<span style='color:red'>注：只能用jqery取值，不能赋值，赋值无效</span></li>
+                  <li>
+                      <p>pc端测试连接：（26为配置信息id，改变参数即可预览配置效果,注在pc端取不到用户信息等初始信息,也无法保存</p>
+                      <p><a href='http://mobileproxy.h3c.com:8000/dev/work-flow/#/workflow-form/26' target='_blank'>
+                          http://mobileproxy.h3c.com:8000/dev/work-flow/#/workflow-form/26</a></p>
+                  </li>
+              </ol>
+          </div>
+          <div id='api'>
+            <p style="color:red">全局方法放在变量 miniapp 里，包含如下方法:</p> 
+            <pre id="api/toast">
+                <span style="color:blue">miniapp.toast</span>
+                提示弹窗
+                例如：miniapp.toast('提示内容'，3000) //第一个参数：提示弹窗显示文本，第二个参数：弹窗显示时间，示例为3秒
+            </pre> 
+            <pre id="api/showLoading">
+                <span style="color:blue">miniapp.showLoading</span>
+                加载中弹窗
+                例如：miniapp.showLoading(true) // true 禁止背景点击；false允许背景点击。可不传，默认true
+            </pre>
+            <pre id="api/hideLoading">
+                <span style="color:blue">miniapp.hideLoading</span>
+                关闭加载中弹窗
+                例如：miniapp.hideLoading()
+            </pre>
+            <pre id="api/pushPage">
+                <span style="color:blue">miniapp.pushPage</span>
+                应用内部跳转
+                例如：miniapp.pushPage(pageUrl) // 跳转到pageUrl路径页面，<span style="color:red;">注：路径地址必须/开头</span>
+            </pre>
+            <pre id="api/replacePage">
+                <span style="color:blue">miniapp.replacePage</span>
+                应用内部跳转，跳转方式为替换当前页面
+                例如：miniapp.replacePage(pageUrl) // 跳转到pageUrl路径页面，<span style="color:red;">注：路径地址必须/开头</span>
+            </pre>
+            <pre id="api/goHomePage">
+                <span style="color:blue">miniapp.goHomePage</span>
+                跳转应用首页
+                例如：miniapp.goHomePage(pageId,query,isReplace)
+                参数说明：   pageId diy应用页面id
+                            query  对象类型，同vue路由对象query属性
+                            isReplace 是否替换当前页面，默认false
+            </pre>
+            <pre id="api/location">
+                <span style="color:blue">miniapp.location</span>
+                获取页面路由信息
+                例如：miniapp.location()
+                返回数据：{params： vueRoute对象的params, query: vueRoute对象的query}
+            </pre>
+          </div>
+          <div id='struct'>
+              <pre>
+                  配置整体结构：
+                  {
+                      "params":[   //组件对象数组
+                          {
+                              "type":"page-title",
+                              "value":"标题",
+                              "height": 60,
+                              ...
+                          },
+                          {
+                              "type":"page-imgList",
+                              "title":{
+                                "value": "图片标题",
+                                ...
+                              },
+                              "style":{...}
+                              ...
+                          },
+                          ...
+                      ],
+                      "initFunc":"init",//初始化时执行，如需带入员工域账号等信息需要在此操作，适合赋初始值操作,组件配置启用传参由此函数返回传参数据
+                      "backgroundColor": "#f7f7f7",//页面背景色
+                      "showTabBar": true,//是否开启底部导航
+                      "tabBarSetting": { // 底部导航配置信息
+                        "color": "#7d7e80", // 导航默认颜色
+                        "selectedColor": "#1989fa", // 导航选中状态颜色
+                        "list": [{
+                            "name": "home", // 导航标识，默认
+                            "text": "首页", // 导航名称
+                            "iconPath": "el-icon-s-home", // 导航图标
+                            "defaultAction": true, // 导航是否默认选中
+                        }, {
+                            "name": "mine", // 导航标识， 默认
+                            "text": "我的收藏", // 导航名称
+                            "iconPath": "el-icon-s-custom", // 导航图标
+                            "defaultAction": false, // 导航是否默认选中
+                            "itemId": "", // 绑定的栏目id，仅“我的收藏”需要绑定栏目
+                        }, {
+                            "name": "1", // 导航标识，添加时自动生成
+                            "text": "导航", // 导航名称
+                            "iconPath": "", // 导航图标
+                            "defaultAction": false, // 导航是否默认选中
+                            "onClick": { // 导航跳转配置对象，<span style='color:red'>注：默认的“首页”和“我的收藏”不需要配置跳转</span>
+                                "type": "none",
+                                "action": ""
+                            },
+                        }]
+                      },
+                  }
+
+                  init：初始化函数默认两个参数，设置参数函数，以及带域名信息的对象， 例如：
+                  function init(setParam,payload){
+                      //payload包括用户域账号:payload.userId ,企业微信应用编号:payload.state,用户userTicket:payload.code
+                      //setParam需要一个参数，即启用传参组件所绑定是数据对象集合
+                      setParam({
+                        slotKey1: [...],
+                        slotKey2: {},
+                        ...
+                      })
+                  }
+
+              </pre>
+          </div>
+          <div id='title'>
+              <pre>
+                  标题组件
+                  {
+                      "type": "page-title",
+                      "value":"标题",
+                      "height":60,
+                  }
+              </pre>
+          </div>
+          <div id='imgList'>
+              <pre>
+                图片组件
+                {
+                    "type":"page-imgList",
+                    "label":"图片",
+                    "isSlot": false, // 是否启动传参  开启后图片组件的数据由js中获取
+                    "slotKey": "", // 开启传参后必填  从js取数据绑定的键值
+                    "mode":"tile", // 图片显示模式 tile平铺模式  hotarea自定义热区模式
+                    "imageList":[{ // 上传的图片数据
+                        src: "", // 图片链接
+                        areas: [{ // 图片自定义热区
+                            top: 160, // 热区相对于图片的位置定位
+                            left: 260, // 热区相对于图片的位置定位
+                            width: 80, // 热区的宽度
+                            height: 80, // 热区的高度
+                            onClick: { // 热区绑定的点击事件配置对象
+                                type: 'none',
+                                action: ''
+                            }
+                        }], 
+                        onClick: { // 平铺模式下图片的点击事件配置
+                          type: "none",
+                          action: ""
+                        }
+                    }],
+                    "style":{}, // 组件样式设置
+                    "title":{}, // 组件标题设置
+                }  
+              </pre>
+          </div>
+          <div id='imgTextNav'>
+              <pre>
+                图文导航组件：
+                  {
+                    type:"page-imgTextNav",
+                    label:"图文导航",
+                    style:{},
+                    hasTitleSetting:true,
+                    title:{
+                      show:true,
+                      value:"标题",
+                      more:"更多",
+                      titleIcon:{
+                        icon:'fa fa-minus',
+                        color:'#008DFC'
+                      }
+                    },
+                    mode:"imgTop", // 显示模式
+                    columnCount: 4, // 每行显示个数
+                    gap: {}, // 导航间距
+                    navHeight: 80, // 导航卡片高度
+                    imgShape:"keepImg",
+                    imgBorderRadio:4,
+                  }
+              </pre>
+          </div>
+          <div id='swiper'>
+              <pre>
+                轮播图组件：
+                  {
+                    type:"page-swiper",
+                    label:"轮播图",
+                    options:[{
+                      "title":"",
+                      "src": "",
+                      "onClick": {
+                        "type": "none",
+                        "action": ""
+                      }
+                    }, {
+                      "title":"",
+                      "src": "",
+                      "onClick": {
+                        "type": "none",
+                        "action": ""
+                      }
+                    }, {
+                      "title":"",
+                      "src": "",
+                      "onClick": {
+                        "type": "none",
+                        "action": ""
+                      }
+                    }],
+                    autoplay:true,
+                    delay:3,
+                    loop:true,
+                    imgHeight:220,
+                    style:{},
+                  }
+              </pre>
+          </div>
+          <div id='searchBar'>
+              <pre>
+                搜索框组件：
+                  {
+                    "type":"page-searchBar",
+                    "label":"搜索框",
+                    "placeholder": "搜索",
+                    "textColor": "#999999",
+                    "iconColor": "#999999",
+                    "align": "center",
+                    "height": 28,
+                    "gap": {},
+                    "dataType": ['article'],
+                    "onClick": {
+                        type: "none",
+                        action: ""
+                    }
+                    "style": {},
+                  }
+              </pre>
+          </div>
+          <div id="datasourceList">
+            <pre>
+                列表组件：
+                {
+                    "type": "page-datasourceList",
+                    "label": "列表",
+                    "mode": "list", // 列表显示模式（基础列表，图文列表，卡片列表），默认基础列表
+                    "style":{},
+                    "title":{
+                        show:true,
+                        value:"标题",
+                        more:"更多",
+                        titleIcon:{
+                            icon:'fa fa-minus',
+                            color:'#008DFC'
+                        }
+                    },
+                    "dataList": [], // 列表数据
+                    "isSlot": false,
+                    "slotKey": "",
+                    "listClick": "", // 动态绑定数据的点击事件函数，启用传参后生效
+                    "modeSetting": { // 列表样式配置对象
+                        "label": { // 信息栏标签配置对象
+                            color: '#999999',
+                            align: 'right',
+                            fontSize: 14,
+                            width: ''
+                        },
+                        "content": { // 信息栏内容配置对象
+                            color: '#333333',
+                            align: 'left',
+                            fontSize: 14,
+                            width: ''
+                        },
+                        "abstractColor": '#999999', // 摘要文字颜色
+                        "picWidth": "", // 图片宽度，图文模式生效
+                        "picHeight": "", // 图片高度，图文模式和卡片模式生效
+                        "picAlign": "left",// 图片位置，图文模式生效
+                        "showTitle": true, // 是否显示标题
+                        "titleKey": 'title',// 标题对应键值
+                        "dataOption": [{ // 数据项配置
+                            type: 'info',
+                            name: '标签1',
+                            key: 'field1'
+                        },{
+                            type: 'info',
+                            name: '标签2',
+                            key: 'field2'
+                        }],
+                    },
+                }
+            </pre>
+          </div>
+          <div id="articleList">
+            <pre>
+                文章列表：
+                {
+                    "type":"page-articleList",
+                    "label":"文章列表",
+                    "style":{},
+                    "title":{},
+                    "count": 4, // 显示个数
+                    "itemId": "", // 绑定栏目
+                    "showParams": "new", // 显示数据类型（最新文章，热门文章，星标文章，手动添加文章）
+                    "dataList": [], // 手动添加数据保存
+                }
+            </pre>
+          </div>
+          <div id="videoList">
+            <pre>
+                视频列表:
+                {
+                    type:"page-videoList",
+                    label:"视频列表",
+                    title:{},
+                    style:{},
+                    "count": 4, // 显示个数
+                    "itemId": "", // 绑定栏目
+                    "showParams": "new", // 显示数据类型（最新视频，热门视频，手动添加）
+                    dataList: [], 手动添加数据保存
+                    mode:'card', // 显示模式（列表，卡片）
+                }
+            </pre>
+          </div>
+          <div id="quesList">
+            <pre>
+                问答列表:
+                {
+                    type:"page-quesList",
+                    label:"问答列表",
+                    title:{},
+                    style:{},
+                    "count": 4, // 显示个数
+                    "itemId": "", // 绑定栏目
+                    "showParams": "new", // 显示数据类型（最新问答，热门问答，手动添加）
+                    dataList: [], 手动添加数据保存
+                }
+            </pre>
+          </div>
+          <div id="favorList">
+            <pre>
+                我的收藏：
+                {
+                    "type":"page-favorList",
+                    "label":"我的收藏",
+                    "title": {
+                        "show": true,
+                        "value": "我的收藏",
+                        "more": "更多",
+                        "onClick": {
+                        "type": "url",
+                        "action": "/publicity-collect"
+                        },
+                        "showBorder": true
+                    },
+                    "style": {},
+                    "count": 4, // 显示个数
+                    "itemId": "", // 绑定栏目
+                    "dataType": "", 数据类型
+                    "mode": "card", // 显示模式，数据类型为视频时生效
+                }
+            </pre>
+          </div>
+          <!-- <div id='checkboxGroup'>
+              <pre>
+                  checkboxGroup 多选：
+                  {
+                      "type": "checkboxGroup",//必填，组件类型
+                      "key":"love",//必填，字段名称
+                      "label":"兴趣爱好",
+                      "value":"0,1,2",
+                      "require":true,
+                      "show":true,//是否显示，默认为true
+                      "readonly":false,//是否只读,默认false
+                      "options":[  //必填，字符串（函数名称）或数组[5,6,7,8,9]或对象数组[{"name":"张三",id:"1"}]
+                                  {"value":"0","name":"足球"},
+                                  {"value":"1","name":"篮球"},
+                                  {"value":"2","name":"羽毛球"},
+                                  {"value":"3","name":"毛球"}],
+                      "labelKey":"name",//在界面上显示的字段值，options为对象数组时必填，默认label
+                      "valueKey":"value",//保存的字段值，options为对象数组时必填，默认value，
+                      "direction":"column", //展示方式，按行或列，row,column 默认row
+                  
+                      //以下配置项同input，作用于checkbox
+                      "attributes": [],//如果是class或style，作用到组件最外层
+                      "events": [],
+                      "callback":"change"
+                  }
+
+                  callback：所有组件都有该配置项，组件内部值发生变化时触发，
+                  接收两个参数，第一个为重置配置的函数，第二个为组件变化的信息对象，如下：
+                  function change(setParam,payload){
+                      //payload对象中包括值value，组件字段名称from，组件整个配置对象fromParam，当前作用域的整个表单对象params
+                      //此时payload.fromParam包含选中的项，即payload.fromParam.selectItems，如：[{value:0,name:'足球'},
+                      //{value:1,name:"篮球"},]
+                  }
+              </pre>
+          </div>
+          <div id='checkbox'>
+              <pre>
+                  checkbox 单个：
+                  {
+                      "type": "checkbox",//必填，组件类型
+                      "key":"attend",//必填，字段名称
+                      "label":"是否参加",
+                      "value":false,//默认值
+                      "optionLabel":"是",//checkbox右侧显示的文字
+                      "require":true,
+                      "show":true,//是否显示，默认为true
+                      "readonly":false,//是否只读,默认false
+                  
+                      //以下配置项同input，作用于checkbox
+                      "attributes": [],//如果是class或style，作用到组件最外层
+                      "events": [],
+                      "callback":"change"
+                  },
+              </pre>
+          </div>
+          <div id='picker'>
+              <pre>
+                  picker 下拉选择：
+                  {
+                      "type": "picker",//必填，组件类型
+                      "key":"number",//必填，字段名称；且为input元素上data-key属性值，获取值方法$("input[data-key='number']").val()
+                      "label":"下拉选择",
+                      "options":"getNumber",//必填，字符串（函数名称）或数组[5,6,7,8,9]或对象数组[{"name":"张三","id":"1"}]
+                      "require":true,
+                      "show":true,//是否显示，默认为true
+                      "labelKey":"name",//在界面上显示的字段值，options为对象数组时必填
+                      "valueKey":"id",//保存的字段值，options为对象数组时必填
+                      <span style='color:red'>
+                      //默认值,值类型，或者对象类型(显示值与保存值不一样时)，如下，原showValue属性已去掉 </span>
+                      "value":1,
+                      <span style='color:red'>"value":{"value":1,"showValue":"one"},//默认值，包含两个属性，一个值，一个显示在界面上的值</span>
+                      //以下配置项同input，作用于input
+                      "attributes": [],//如果是class或style，作用到组件最外层
+                      "events": [],
+                      "callback":"change"
+                  }
+                  
+                  callback：所有组件都有该配置项，组件内部值发生变化时触发，
+                  接收两个参数，第一个为重置配置的函数，第二个为组件变化的信息对象，如下：
+                  function change(setParam,payload){
+                      //payload对象中包括值value，组件字段名称from，组件整个配置对象fromParam，当前作用域的整个表单对象params
+                      //此时payload.fromParam包含选中的项，即payload.fromParam.selectItems
+                  }
+                  options为函数时，默认接收一个参数，参数类型为重置数据源的函数，例如下：
+                  function getNumber(setOptions){
+                      setTimeout(()=>{
+                          setOptions([1,2,3,4,5])
+                      },2000)
+                  } 
+                  <p style="color:red">
+                  注：如果需要动态修改picker里的options时，需要重置该字段的resetOptions属性（而非options），如
+                  setParam([{key:'number',"resetOptions":[1,2,3]}])
+                  </p>
+              </pre>
+          </div>
+          <div id='fileUploade'>
+              <pre>
+                  fileUploade 文件上传：
+                  {
+                      "type":"fileUpload",//必填，组件类型
+                      "key":"files",      //必填，字段名称
+                      "label":"文件上传" ,
+                      "multiple":true,//是否多文件上传，默认false
+                      "accept":"*",//上传文件类型
+                      "maxNum":2,//上传最多文件个数,
+                      "maxSize":6,//限制文件大小kb
+                      "show":true,//是否显示，默认为true,
+                      "require":true
+                  }
+              </pre>
+          </div>
+          <div id='cascaderSelect'>
+              <pre>
+                  cascaderselect 级联选择：
+                  {
+                      "type": "cascaderselect",//必填，组件类型
+                      "key":"address", //必填，字段名称；且为input元素上data-key属性值，获取值方法$("input[data-key='address']").val()
+                      "label":"级联选择",
+                      "options":[    //必填,该options与其他组件不同，options里的每一项都是需要联动的信息
+                          //如下第一项中：
+                          //func为第一项数据的初始化函数，changeFunc为选择发生变化后要触发的函数，changeKey为需要触发的项的字段名称
+                          //其余项同上
+                          {"label":"省","key":"province","func":"getProvince","changeFunc":"getCity","changeKey":"city"},
+                          {"label":"市","key":"city","changeFunc":"getArea","changeKey":"area"},
+                          {"label":"区","key":"area"}],
+                      <span style='color:red'>"value": {"value":"1,11,110","showValue":"浙江-杭州-滨江"},//默认值，包含两个属性，一个值，一个显示在界面上的值</span>
+                      "labelKey":"name",  //必填，显示的字段值
+                      "valueKey":"id",    //必填，保存的字段值
+                      "require":true,
+                      "show":true,//是否显示，默认为true,
+                      "showValueSplit":"-",//显示格式，默认无，如浙江-杭州-滨江
+                      //以下配置项同input，作用于input
+                      "attributes": [],//如果是class或style，作用到组件最外层
+                      "events": [],
+                      "callback":"change"
+                  }
+                  
+                  func：接收一个参数，设置option的函数
+                  function getProvince(setOptions){
+                      setTimeout(()=>{
+                          let values=[{
+                              name:'浙江省',
+                              id:1
+                          },{
+                              name:'山西省',
+                              id:2
+                          }]
+                          setOptions(values)
+                      },1000)
+                  }  
+
+                  changeFunc：函数接收到三个参数，设置option的函数和当前选中的id，以及前几项选中项ids（逗号分隔），如下
+                  function getCity(setOptions,id,ids){
+                      if(id==1){
+                            setTimeout(()=>{
+                              setOptions([{
+                                  name:'杭州市',
+                                  id:11
+                              },{
+                                  name:'温州市',
+                                  id:12
+                              }])
+                          },1000)
+                      }
+                      else{
+                          setTimeout(()=>{
+                              setOptions([{
+                                  name:'太原',
+                                  id:21
+                              },{
+                                  name:'大同',
+                                  id:22
+                              }])
+                          },1000)
+                      }
+                  }
+                  function getArea(setOptions,id,ids){
+                      if(id==11){
+                            setTimeout(()=>{
+                              setOptions([{
+                                  name:'滨江',
+                                  id:110
+                              },{
+                                  name:'萧山',
+                                  id:111
+                              }])
+                          },1000)
+                      }
+                      else{
+                          setTimeout(()=>{
+                              setOptions([{
+                                  name:'青田',
+                                  id:120
+                              },{
+                                  name:'瑞安',
+                                  id:121
+                              }])
+                          },1000)
+                      }
+                  }
+
+                  callback：所有组件都有该配置项，组件内部值发生变化时触发，
+                  接收两个参数，第一个为重置配置的函数，第二个为组件变化的信息对象，如下：
+                  function change(setParam,payload){
+                      //payload对象中包括值value，组件字段名称from，组件整个配置对象fromParam，当前作用域的整个表单对象params
+                      //此时payload.fromParam包含选中的项，即payload.fromParam.selectItems，如[{name:'浙江省',id:1},{name:'杭州市', id:11},
+                      //{name:'滨江', id:110}]
+                  }
+              </pre>
+          </div>
+          <div id='searchSelect'>
+              <pre>
+                  searchSelect 搜索选择：
+                  {
+                      "type": "searchSelect", //必填，组件类型
+                      "key":"friends", //必填，字段名称；且为input元素上data-key属性值，获取值方法$("input[data-key="friends"]").val()
+                      "label":"搜索选择",
+                      "options":[   //必填，字符串（函数名称）或数组[5,6,7,8,9]或对象数组[{"name":"张三","id":"1"}]
+                          {"label":"1","value":"11","label1":"one","label2":"two"},
+                          {"label":"2","value":"22","label1":"one","label2":"two"},
+                          {"label":"3","value":"33","label1":"one","label2":"two"}
+                      ],
+                      <span style='color:red'>
+                      //默认值,值类型，或者对象类型(显示值与保存值不一样时)，如下，原showValue属性已去掉</span>
+                      "value":"11,22,33",//值类型
+                      <span style='color:red'>"value":{"value":"11,22,33","showValue":"1,2,3"}, //对象类型，包含两个属性，一个值，一个显示在界面上的值</span>
+                      "labelKey":"label", //在界面上显示的字段值，options为对象数组时必填，默认label，也是在弹出的选择界面上展示的第一项信息
+                      "valueKey":"value", //真正保存的字段值，options为对象数组时必填，默认value，
+                      "labelKey1":"label1",//options为对象数组时，需要在界面上展示的第二项信息，显示多项文本
+                      "labelKey2":"label2",//options为对象数组时,需要在界面上展示的第三项信息，显示多项文本
+                      <span style='color:red'>
+                      "showSearchInput":true,//是否显示搜索框，默认为true</span>
+                      "searchPlaceHolder":"搜索关键字",//搜索框placeholder
+                      "searchFunc":"searchFunc",//搜索时触发的函数名称
+                      "chooseMutiple":true, //是否为多选
+                      "require":true,
+                      "show":true,//是否显示，默认为true,
+                      "pagenble":true,//是否分页
+                      "pageSize":"10",//分页条数，默认一页20条
+                  
+                      //以下配置项同input，作用于input
+                      "attributes": [],//如果是class或style，作用到组件最外层
+                      "events": [],
+                      "callback":"change"
+                  }
+
+                  callback：所有组件都有该配置项，组件内部值发生变化时触发，
+                  接收两个参数，第一个为重置配置的函数，第二个为组件变化的信息对象，如下：
+                  function change(setParam,payload){
+                      //payload对象中包括值value，组件字段名称from，组件整个配置对象fromParam，当前作用域的整个表单对象params
+                      //此时payload.fromParam包含选中的项，即payload.fromParam.selectItems,当chooseMutiple为true则返回
+                      数组如[{'label':'1','value':'11'}],否则为单个对象如{'label':'1','value':'11'}，没有选中时，
+                      payload.fromParam.selectItems为undefined
+                  }
+
+                  searchFunc:搜索函数，当输入框有值时，自动触发；包含两个参数，一个为重置options的函数setOptions，一个为对象
+                  payload,输入的关键字为payload.searchStr，例如：
+                  function searchFunc(setOptions,payload){
+                      setTimeout(()=>{
+                          if(payload.searchStr){
+                              setOptions([
+                                  {'name':'1','id':'11',"txt":'label1',"label2":"label2"},
+                                  {'name':'2','id':'22',"txt":'label1',"label2":"label2"},
+                              ])
+                          }
+                          else{
+                                setOptions([])
+                          }
+                      },1000)
+                  } 
+
+                  pagenble为true,即分页时，options（为函数时）和searchFunc接收参数的payload中，包含分页信息如下,数据操作同上
+                  function pageFunc(setOptions,payload){
+                      let pageIndex = payload.pageIndex //页码
+                      let pageSize = payload.pageSize  //每页数据条数
+                      let searchStr = payload.searchStr //搜索文字
+                      setOptions([
+                          ...
+                      ])
+                  }
+                  <p style="color:red">
+                  注：如果需要动态修改searchselect里的options时，需要重置该字段的resetOptions属性（而非options），如
+                  setParam([{key:'friends',"resetOptions":{id:1,name:"one"},{id:2,name:"two"}}])
+                  </p>
+              </pre>
+          </div>
+          <div id='addressBook'>
+              <pre>
+                  addressBook 通讯录选择
+                  {
+                      "type":"addressBook",//必填，组件类型
+                      "key":"book",   //必填，字段名称；且为input元素上data-key属性值，获取值方法$("input[data-key='book']").val()
+                      "label":"通讯录",
+                      "fromDepartmentId": 0,// 必填，表示打开的通讯录从指定的部门开始展示，-1表示自己所在部门开始, 0表示从最上层开始
+                      "mode":"multi",// 必填，选择模式，single表示单选，multi表示多选
+                      "chooseType": ["user"],// 必填，选择限制类型，指定department、user中的一个,
+                      "selectedUserIds": [],// 非必填，已选用户ID(域账号)列表。用于多次选人时可重入，single模式下请勿填入多个id
+                      "callback":"bookChange",
+                      <span style='color:red'>
+                      //默认值,值类型，或者对象类型(显示值与保存值不一样时)，如下，原showValue属性已去掉</span>
+                      "value":"hys3032,lys8937",//值类型
+                      <span style='color:red'> //对象类型，包含两个属性，一个值，一个显示在界面上的值
+                      "value":{"value":"hys3032,lys8937","showValue":"李四 hys3032,张三 lys8937"}
+                      注：value或value.value值跟企业微信返回的id值一致时，操作时才会默认勾上已选项，否则不会默认勾上
+                      </span>
+                  }
+
+                  callback：所有组件都有该配置项，组件内部值发生变化时触发，
+                  接收两个参数，第一个为重置配置的函数，第二个为组件变化的信息对象，如下： 
+                  payload对象中包括值value，组件字段名称from，组件整个配置对象fromParam，当前作用域的整个表单对象params
+                  该组件mode包含"user"时调用的是<a href='https://work.weixin.qq.com/api/doc/90000/90136/91793' target='_blank'>企业微信的接口</a>，payload.value和payload.fromParam.selectItems相同，都为选中的对象，对象中
+                  包含人员信息和部门信息
+                  如{
+                      //部门列表,parents包含所有上级部门信息
+                      departmentList:[{id:101,name:'研发及平台方案部',parents:[{id:100,name:'信息技术部'},{id:101,name:'研发及平台方案部'}]}],
+                      //用户列表
+                      userList:[{id:1,name:'张三',avatar:''//头像链接}，{id:2,name:'李四',avatar:''}],//人员信息
+                  }
+                  例如下，
+                  function bookChange(setParam,payload){
+                      if(!payload.value.userList)return //以防修改状态时，因回写值而触发该函数导致报错
+                      setParam([{
+                          key:'book',
+                          value:{
+                              value:payload.value.userList.map(it=>it.id).join(),//最终保存到数据库的值
+                              showValue:payload.value.userList.map(it=>it.name).join(),//显示在页面上的值
+                          }
+                      }])
+                  }
+              </pre>
+          </div>
+          <div id='deptSelect'>
+              <pre>
+                  deptSelect 部门选择（自定义数据源）：
+                  {
+                      "type": "deptSelect", //必填，组件类型
+                      "key":"department", //必填，字段名称；且为input元素上data-key属性值，获取值方法$("input[data-key="department"]").val()
+                      "label":"自定义部门",                           
+                      "require": false,
+                      "chooseMutiple": true, //是否为多选
+                      "options":"getDeptData",//必填，字符串（函数名称）,
+                      "labelKey":"deptName", //非必填，默认label
+                      "valueKey":"deptId",//非必填，默认value
+                      "callback": "deptChange"
+                  
+                      //以下配置项同input，作用于input
+                      "attributes": [],//如果是class或style，作用到组件最外层
+                      "events": [],
+                      "callback":"deptChange"
+                  }
+
+                  options:获取数据源的函数，接收两个参数，第一个参数为重置列表项的函数，
+                  第二个参数为当前的点击数据项，返回整个对象，并且包含parents属性即其上级对象,注：第一次加载时，payload为undefined
+                  payload结构：
+                  {
+                      deptId: 21
+                      deptName: "研发及平台方案部"
+                      other: "two2"
+                      parents:[{
+                          deptId: 2
+                          deptName: "信息技术部"
+                          other: "two"
+                      }, {
+                          deptId: 21
+                          deptName: "研发及平台方案部"
+                          other: "two2"
+                      }]
+                  }
+                  例如：
+                  function getDeptData(setOptions,payload){
+                      //第一次加载设置一级部门项
+                      if(!payload){
+                          setOptions([
+                              {deptId:1,deptName:'人力资源部',other:'one'},
+                              {deptId:2,deptName:'信息技术部',other:'two'},
+                          ]) 
+                      }
+                      //点击项后重置列表项
+                      else{
+                          if(payload.deptId==1){
+                              setTimeout(() => {
+                                  setOptions([
+                                      {deptId:10,deptName:'人才管理部',other:'one1'},
+                                      {deptId:11,deptName:'合作管理部',other:'two1'},
+                                  ])
+                              }, 500);
+                          }
+                          else if(payload.deptId==2){
+                              setOptions([
+                                  {deptId:20,deptName:'IT基础架构部',other:'one2'},
+                                  {deptId:21,deptName:'研发及平台方案部',other:'two2'},
+                              ])
+                          }
+                          else{
+                              setOptions([])
+                          }
+                      }
+                  }
+
+                  callback：所有组件都有该配置项，组件内部值发生变化时触发，
+                  接收两个参数，第一个为重置配置的函数，第二个为组件变化的信息对象，如下：
+                  function deptChange(setParam,payload){
+                      //payload对象中包括值value(由对象中valueKey的逗号分隔的字符串），如单选时为"1",多选时为"1,2"
+                      //组件字段名称from，组件整个配置对象fromParam，当前作用域的整个表单对象params
+                      //此时payload.fromParam包含选中的项，即payload.fromParam.selectItems，为对象数组,
+                      //如[{
+                          deptId: 21
+                          deptName: "研发及平台方案部"
+                          other: "two2"
+                          parents:[{
+                              deptId: 2
+                              deptName: "信息技术部"
+                              other: "two"
+                          }, {
+                              deptId: 21
+                              deptName: "研发及平台方案部"
+                              other: "two2"
+                          }]
+                      }]
+
+                      
+                      if(!payload.fromParam.selectItems)return
+                      let showValues=[]
+                      payload.fromParam.selectItems.forEach(function(item){
+                          showValues.push(item.deptName)
+                      })
+                      setParam([{
+                          key:'department_customer',
+                          value:{
+                              value:payload.value,//最终保存到数据库的值
+                              showValue:showValues.join(',')//显示在输入框里的值
+                          }
+                      }])  
+                  }
+              </pre>
+          </div>
+          <div id='hidden'>
+              <pre>
+                  hidden 隐藏元素
+
+                  {
+                      "type":"hidden", //必填，组件类型
+                      "key":"hidden-name", //必填，字段名称；且为input元素上data-key属性值，获取值方法$("input[data-key='hidden-name']").val()
+                      "value":"123"//非必填，默认值
+                  },
+              </pre>
+          </div>
+          <div id='detail'>
+              <pre>
+                  detail 明细表单：
+                  
+                  单个字段明细：
+                  {
+                      "type":"detail",   //必填，组件类型
+                      "key":"oneDetail", //必填，字段名称
+                      "title":"1个字段", //显示的label
+                      "mode":"simple",//必填，明细模式： simple:1个字段，mutiple:多个字段，pop:弹出页面,
+                      "show":true,//是否显示，默认为true,
+                      "params":[{  //明细内具体字段,组件对象数组
+                          "key":"school",
+                          "type":"input" ,
+                          "label":"学校",
+                          "require":true,
+                          "value":""
+                      }],
+                      "defaultValue":[  //给定初始明细项
+                          {
+                              "school":1
+                          },
+                          {
+                              "school":2
+                          }
+                      ]
+                  },
+
+                  多个字段明细：
+                  {
+                      "type":"detail",   //必填，组件类型
+                      "key":"twoDetail", //必填，组件类型
+                      "title":"多个字段",
+                      "mode":"mutiple",// 必填，simple:1个字段，mutiple:多个字段，pop:弹出页面,
+                      "params":[{
+                          "key":"school",
+                          "type":"input" ,
+                          "label":"学校",
+                          "require":true,
+                          "value":"123"
+                      },
+                      {
+                          "key":"class",
+                          "type":"input",
+                          "label":"专业"
+                      }],
+                      "defaultValue":[  //给定初始明细项
+                          {"school":"1","class":"2"},
+                          {"school":"3","class":"4"}
+                      ]
+                  }
+
+                  弹出框明细：
+                  {
+                      "type":"detail", //必填，组件类型
+                      "key":"threeDetail", //必填，字段名称
+                      "title":"复杂pop",
+                      "mode":"pop",//必填，simple:1个字段，mutiple:多个字段，pop:弹出页面,
+                      "params":[
+                          {
+                              "key":"school",
+                              "type":"input" ,
+                              "label":"学校",
+                              "require":true,
+                          },
+                          {
+                              "type": "radio",
+                              "label":"性别",
+                              "value":1,
+                              "key":"sex",
+                              "options":[
+                                  {"value":0,"label":"男"},
+                                  {"value":1,"label":"女"}
+                              ],
+                              "labelKey":"label",//默认label
+                              "valueKey":"value",//默认value
+                              "direction":"row", //row,column 默认row
+                              "callback":"change1"
+                          }, 
+                          {
+                              "type": "checkbox",
+                              "label":"是否参加",
+                              "value":false,
+                              "key":"attend",
+                              "optionLabel":"是"
+                          }              
+                      ],
+                      "defaultValue":[  //给定初始明细项
+                            {"school":"1","sex":"0","attend":true},
+                            {"school":"2","sex":"1","attend":false}
+                      ], <p style="color:red">
+                      "beforeSave":"beforeSave" //保存前执行该函数，返回true或false，返回true才会继续往下执行（只支持同步） </p>
+                  }
+              </pre>
+          </div> -->
+        </div>
+    </section>
+      
+  </body>
+  <script>
+    document.body.addEventListener('click',function(e){
+        if(e.target.classList.contains("hasInner")){
+           var innerMenu =  e.target.nextElementSibling
+           if(!innerMenu||!innerMenu.classList)return
+           if(innerMenu.classList.contains("hidden")){
+                innerMenu.classList.remove('hidden')
+                e.target.classList.remove('toggle')
+                e.target.classList.add('toggled')
+           }
+           else{
+                innerMenu.classList.add('hidden')
+                e.target.classList.remove('toggled')
+                e.target.classList.add('toggle')
+           }
+        }
+    })
+</script>
+</html>
+<style>
+    .hidden{
+        display:none !important;
+    }
+    html,body{
+        width:100%;
+        height:100%;
+        margin:0;
+        padding:0;
+    }
+    .content{
+        width:1400px;
+        height:100%;
+        margin:auto;
+        position:relative;
+        line-height: 1.5;
+        /* overflow: hidden; */
+    }
+    .left{
+        width:200px;
+        position: fixed;
+        /* left:0; */
+        top:0;
+        bottom:0;
+        border-right: 1px solid;
+        box-sizing: border-box;
+        overflow-y: scroll;
+    }
+    .left  a{
+            display: block;
+            font-size:16px;
+            padding:10px;
+    }
+    .left a.toggle:after{
+        content:'  ＞';
+        display: inline;
+    }
+    .left a.toggled:after{
+        content:'  ∨';
+        display: inline;
+    }
+    .inner.menu{
+        display:block;
+    }
+   .inner>a{
+        padding:2px 0;
+        padding-left:30px;
+        display: block;
+        font-size:14px;
+    }
+    .right{
+        font-size:16px;
+        margin-left:200px;
+        height:100vh;
+        /* overflow-y: scroll; */
+        white-space: wrap;
+        word-break: break-all;
+    }
+    :target{
+        background-color:#6ECC8F;
+    }
+</style>
